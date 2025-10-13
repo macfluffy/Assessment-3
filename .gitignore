@@ -1,4 +1,5 @@
 .venv
 .env
 .envexample
+.flaskenv
 DEV1002 - Assessment 3 Brief.pdf
