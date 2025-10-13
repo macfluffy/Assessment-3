@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 
 # Local imports
 from init import db
+from controllers.cli_controller import dbCommands
 
 load_dotenv()
 
@@ -32,5 +33,7 @@ def create_app():
     app.json.sort_keys = False
     db.init_app(app)
     
-    
+    # Apply the imported routes created in the controllers folder to this 
+    # instance of Flask app
+    app.register_blueprint(dbCommands)
     return app
