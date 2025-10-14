@@ -1,37 +1,39 @@
 """
 This file defines the model for the 'cards' table and it's relationships. 
 """
+# Built-in imports
+import enum
 
 # Local imports
 from init import db
-import enum
+
 
 """
 Enumerated values for attributes of a card that have a value from a 
 pre-defined set
 """
 
-class CardType(enum.ENUM):
+class CardType(enum.Enum):
     """
     This defines the unique type of card that can be found printed on the 
     top of the card. This assumes a card has only one type.
     """
-    DIGIEGG = "digiegg"
-    DIGIMON = "digimon"
-    OPTION = "option"
-    TAMER = "tamer"
+    Digiegg = "digiegg"
+    Digimon = "digimon"
+    Option = "option"
+    Tamer = "tamer"
 
-class CardRarity(enum.ENUM):
+class CardRarity(enum.Enum):
     """
     This is the print rarity of the card and also determines the 
     distribution and likelihood of opening them in a box. This is found at 
     the bottom of the card near the traits.
     """
-    COMMON = "common"
-    UNCOMMON = "uncommon"
-    RARE = "rare"
-    SUPER_RARE = "super_rare"
-    SECRET_RARE = "secret_rare"
+    Common = "common"
+    Uncommon = "uncommon"
+    Rare = "rare"
+    SuperRare = "super_rare"
+    SecretRare = "secret_rare"
 
 class Card(db.Model):
     """
@@ -50,5 +52,5 @@ class Card(db.Model):
     card_id = db.Column(db.Integer, primary_key = True)
     card_number = db.Column(db.String(), nullable = False)
     card_name = db.Column(db.String(), nullable = False)
-    card_type = db.Column(db.SqlEnum(CardType), nullable = False)
-    card_rarity = db.Column(db.SqlEnum(CardRarity), nullable = False)
+    card_type = db.Column(db.Enum(CardType), nullable = False)
+    card_rarity = db.Column(db.Enum(CardRarity), nullable = False)
