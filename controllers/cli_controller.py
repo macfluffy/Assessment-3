@@ -10,6 +10,7 @@ from flask import Blueprint
 # Local imports
 from init import db
 from models.card import Card, CardRarity, CardType
+from models.deck import Deck
 
 # Create the Template Application Interface for in-line command routes to be applied 
 # to the Flask application
@@ -40,7 +41,7 @@ def dropTables():
 @dbCommands.cli.command("seed")
 def seed_tables():
     """
-    Populate the table with initial data. Card information is added 
+    Populate the table with initial data. Card and deck information is added 
     into the LMS database.
     """
     # Create cards to add to the cards database
@@ -103,3 +104,20 @@ def seed_tables():
     # database.
     db.session.commit()
     print("Cards table has been seeded.")
+
+    # Create decks to add to the decks database
+    decks = [Deck(
+        deck_name = "WarGreymon"
+        ), Deck(
+            deck_name = "Rookie Rush"
+        ), Deck(
+            deck_name = "Birds"
+        )]
+    
+    # Add the deck information to this session
+    db.session.add_all(decks)
+
+    # Commit to the session and permanently add the decks to the 
+    # database.
+    db.session.commit()
+    print("Decks table has been seeded.")
