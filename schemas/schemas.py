@@ -119,10 +119,10 @@ class VenueSchema(SQLAlchemyAutoSchema):
         # Define the exact order of how the JSON query is displayed
         # Venue Name, Address, and Phone Number
         fields = (
-            "organiser_id", 
-            "organiser_name",
-            "organiser_email",
-            "organiser_number"
+            "venue_id", 
+            "venue_name",
+            "venue_address",
+            "venue_number"
         )
 
 # Create instances of the schema for the controllers to call when applying validation,
