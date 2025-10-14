@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 from init import db
 from controllers.cli_controller import dbCommands
 from controllers.card_controller import cardsBp
+from controllers.deck_controller import decksBp
 
 load_dotenv()
 
@@ -38,4 +39,5 @@ def create_app():
     # instance of Flask app
     app.register_blueprint(dbCommands)
     app.register_blueprint(cardsBp)
+    app.register_blueprint(decksBp)
     return app
