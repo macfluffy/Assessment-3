@@ -14,6 +14,7 @@ from init import db
 from controllers.cli_controller import dbCommands
 from controllers.card_controller import cardsBp
 from controllers.deck_controller import decksBp
+from controllers.player_controller import playersBp
 
 load_dotenv()
 
@@ -40,4 +41,5 @@ def create_app():
     app.register_blueprint(dbCommands)
     app.register_blueprint(cardsBp)
     app.register_blueprint(decksBp)
+    app.register_blueprint(playersBp)
     return app
