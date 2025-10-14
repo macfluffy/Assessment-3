@@ -12,6 +12,7 @@ from dotenv import load_dotenv
 # Local imports
 from init import db
 from controllers.cli_controller import dbCommands
+from controllers.card_controller import cardsBp
 
 load_dotenv()
 
@@ -36,4 +37,5 @@ def create_app():
     # Apply the imported routes created in the controllers folder to this 
     # instance of Flask app
     app.register_blueprint(dbCommands)
+    app.register_blueprint(cardsBp)
     return app
