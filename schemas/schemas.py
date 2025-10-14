@@ -10,6 +10,7 @@ from marshmallow import fields
 # Local imports - Tables
 from models.card import Card
 from models.deck import Deck
+from models.player import Player
 
 class CardSchema(SQLAlchemyAutoSchema):
     """
@@ -21,7 +22,7 @@ class CardSchema(SQLAlchemyAutoSchema):
         load_instance = True
 
         # Define the exact order of how the JSON query is displayed
-        # Name, Enrolments, Contact Details
+        # Card Number, Card Name, Type, and Rarity
         fields = (
             "card_id", 
             "card_number", 
@@ -46,7 +47,7 @@ class DeckSchema(SQLAlchemyAutoSchema):
         load_instance = True
 
         # Define the exact order of how the JSON query is displayed
-        # Name, Enrolments, Contact Details
+        # Deck Name
         fields = (
             "deck_id", 
             "deck_name"
@@ -56,3 +57,25 @@ class DeckSchema(SQLAlchemyAutoSchema):
 # error handling and restrictions
 deck_schema = DeckSchema()
 decks_schema = DeckSchema(many = True)
+
+
+class PlayerSchema(SQLAlchemyAutoSchema):
+    """
+    The player schema template. This organises the JSON response when fetching player
+    information such as the player's name.
+    """
+    class Meta:
+        model = Player
+        load_instance = True
+
+        # Define the exact order of how the JSON query is displayed
+        # Player Name
+        fields = (
+            "player_id", 
+            "player_name"
+        )
+
+# Create instances of the schema for the controllers to call when applying validation,
+# error handling and restrictions
+player_schema = PlayerSchema()
+players_schema = PlayerSchema(many = True)
