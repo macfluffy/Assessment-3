@@ -12,6 +12,7 @@ from models.card import Card
 from models.deck import Deck
 from models.player import Player
 from models.organiser import Organiser
+from models.venue import Venue
 
 class CardSchema(SQLAlchemyAutoSchema):
     """
@@ -104,3 +105,27 @@ class OrganiserSchema(SQLAlchemyAutoSchema):
 # error handling and restrictions
 organiser_schema = OrganiserSchema()
 organisers_schema = OrganiserSchema(many = True)
+
+
+class VenueSchema(SQLAlchemyAutoSchema):
+    """
+    The venue schema template. This organises the JSON response when fetching 
+    venue information such as the venue's name, location and contact details.
+    """
+    class Meta:
+        model = Venue
+        load_instance = True
+
+        # Define the exact order of how the JSON query is displayed
+        # Venue Name, Address, and Phone Number
+        fields = (
+            "organiser_id", 
+            "organiser_name",
+            "organiser_email",
+            "organiser_number"
+        )
+
+# Create instances of the schema for the controllers to call when applying validation,
+# error handling and restrictions
+venue_schema = VenueSchema()
+venues_schema = VenueSchema(many = True)
