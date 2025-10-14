@@ -9,6 +9,7 @@ from marshmallow import fields
 
 # Local imports - Tables
 from models.card import Card
+from models.deck import Deck
 
 class CardSchema(SQLAlchemyAutoSchema):
     """
@@ -33,3 +34,25 @@ class CardSchema(SQLAlchemyAutoSchema):
 # error handling and restrictions
 card_schema = CardSchema()
 cards_schema = CardSchema(many = True)
+
+
+class DeckSchema(SQLAlchemyAutoSchema):
+    """
+    The deck schema template. This organises the JSON response when fetching deck
+    information such as the deck's name.
+    """
+    class Meta:
+        model = Deck
+        load_instance = True
+
+        # Define the exact order of how the JSON query is displayed
+        # Name, Enrolments, Contact Details
+        fields = (
+            "deck_id", 
+            "deck_name"
+        )
+
+# Create instances of the schema for the controllers to call when applying validation,
+# error handling and restrictions
+deck_schema = DeckSchema()
+decks_schema = DeckSchema(many = True)
