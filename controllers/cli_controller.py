@@ -11,6 +11,9 @@ from flask import Blueprint
 from init import db
 from models.card import Card, CardRarity, CardType
 from models.deck import Deck
+from models.player import Player
+from models.organiser import Organiser
+from models.venue import Venue
 
 # Create the Template Application Interface for in-line command routes to be applied 
 # to the Flask application
@@ -121,3 +124,66 @@ def seed_tables():
     # database.
     db.session.commit()
     print("Decks table has been seeded.")
+
+    # Create players to add to the players database
+    players = [Player(
+        player_name = "macflurry"
+        ), Player(
+            player_name = "Snippythelucky"
+        ), Player(
+            player_name = "Faker"
+        )]
+    
+    # Add the player information to this session
+    db.session.add_all(players)
+
+    # Commit to the session and permanently add the players to the 
+    # database.
+    db.session.commit()
+    print("Players table has been seeded.")
+
+    # Create organisers to add to the organisers database
+    organisers = [Organiser(
+        organiser_name = "Tak Games",
+        organiser_email = "events@takgames.com.au",
+        organiser_number = "0298513267"
+        ), Organiser(
+            organiser_name = "Bandai",
+            organiser_email = "oceanicevents@bandai.com.au",
+            organiser_number = "0385423125"
+        ), Organiser(
+            organiser_name = "Card Gamerz",
+            organiser_email = "bob@cardgamerz.com.au",
+            organiser_number = "0297731234"
+        )]
+    
+    # Add the organiser information to this session
+    db.session.add_all(organisers)
+
+    # Commit to the session and permanently add the organisers to the 
+    # database.
+    db.session.commit()
+    print("Organisers table has been seeded.")
+
+    # Create venues to add to the venues database
+    venues = [Venue(
+        venue_name = "Sydney International Convention Centre",
+        venue_address = "14 Darling Dr, Sydney NSW 2000",
+        venue_number = "0292157100"
+        ), Venue(
+            venue_name = "Marvel Stadium",
+            venue_address = "740 Bourke St, Docklands VIC 3008",
+            venue_number = "0386257700"
+        ), Venue(
+            venue_name = "Qudos Bank Arena",
+            venue_address = "19 Edwin Flack Ave, Sydney Olympic Park NSW 2127",
+            venue_number = "0287654321"
+        )]
+    
+    # Add the venue information to this session
+    db.session.add_all(venues)
+
+    # Commit to the session and permanently add the venues to the 
+    # database.
+    db.session.commit()
+    print("Venues table has been seeded.")
