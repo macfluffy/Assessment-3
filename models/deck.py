@@ -16,3 +16,14 @@ class Deck(db.Model):
     # Table columns
     deck_id = db.Column(db.Integer, primary_key = True)
     deck_name = db.Column(db.String(), nullable = False)
+
+    """
+    Define the relationship between cards and the decks they are put in.
+    A decklist can't exist if the deck if it does not have a name.
+    """
+    # Delete decklists associated to the card when they are deleted
+    decklists = db.relationship(
+        "Decklist", 
+        back_populates = "deck", 
+        cascade = "all, delete"
+    )

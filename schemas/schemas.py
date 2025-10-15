@@ -13,6 +13,7 @@ from models.deck import Deck
 from models.player import Player
 from models.organiser import Organiser
 from models.venue import Venue
+from models.decklist import Decklist
 
 class CardSchema(SQLAlchemyAutoSchema):
     """
@@ -129,3 +130,48 @@ class VenueSchema(SQLAlchemyAutoSchema):
 # error handling and restrictions
 venue_schema = VenueSchema()
 venues_schema = VenueSchema(many = True)
+
+
+class DecklistSchema(SQLAlchemyAutoSchema):
+    """
+    The decklist schema template. This organises the JSON response when fetching 
+    decklist information such as how many copies of a card are in this list, and
+    the name of the deck.
+    """
+    class Meta:
+        model = Decklist
+        load_instance = True
+        include_fk = True
+
+        # Define the exact order of how the JSON query is displayed
+        # Deck Info, Card Info, Card Quantity
+        fields = (
+            "deck_id",
+            "decks",
+            "card_quantity",
+            "card_id", 
+            "cards"
+        )
+
+    # Only show the name of the deck when showing deck information in
+    # the decklist query
+    deck = fields.Nested(
+        "DeckSchema", 
+        only = (
+            "deck_name",
+        )
+    )
+
+    # Only show the name of the card when showing card information in 
+    # the decklist query
+    card = fields.Nested(
+        "CardSchema", 
+        only = (
+            "card_name", 
+        )
+    )
+
+# Create instances of the schema for the controllers to call when applying validation,
+# error handling and restrictions
+decklist_schema = DecklistSchema()
+decklists_schema = DecklistSchema(many = True)

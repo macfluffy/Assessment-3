@@ -54,3 +54,14 @@ class Card(db.Model):
     card_name = db.Column(db.String(), nullable = False)
     card_type = db.Column(db.Enum(CardType), nullable = False)
     card_rarity = db.Column(db.Enum(CardRarity), nullable = False)
+
+    """
+    Define the relationship between cards and the decks they are put in.
+    A decklist can't exist if there are no cards in the deck.
+    """
+    # Delete decklists associated to the card when they are deleted
+    decklists = db.relationship(
+        "Decklist", 
+        back_populates = "card", 
+        cascade = "all, delete"
+    )
