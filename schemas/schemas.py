@@ -1,6 +1,7 @@
 """
-This file creates the structure on how the data should be organised within our relational database,
-their constraints, and the relationships between each of these tables.
+This file creates the structure on how the data should be organised 
+within our relational database, their constraints, and the 
+relationships between each of these tables.
 """
 
 # Installed import packages
@@ -14,11 +15,13 @@ from models.player import Player
 from models.organiser import Organiser
 from models.venue import Venue
 from models.decklist import Decklist
+from models.collection import Collection
 
 class CardSchema(SQLAlchemyAutoSchema):
     """
-    The card schema template. This organises the JSON response when fetching card
-    information such as the card's name, number, type and rarity.
+    The card schema template. This organises the JSON response when 
+    fetching card information such as the card's name, number, type 
+    and rarity.
     """
     class Meta:
         model = Card
@@ -34,16 +37,16 @@ class CardSchema(SQLAlchemyAutoSchema):
             "card_rarity"
         )
 
-# Create instances of the schema for the controllers to call when applying validation,
-# error handling and restrictions
+# Create instances of the schema for the controllers to call when 
+# applying validation, error handling and restrictions
 card_schema = CardSchema()
 cards_schema = CardSchema(many = True)
 
 
 class DeckSchema(SQLAlchemyAutoSchema):
     """
-    The deck schema template. This organises the JSON response when fetching deck
-    information such as the deck's name.
+    The deck schema template. This organises the JSON response when 
+    fetching deck information such as the deck's name.
     """
     class Meta:
         model = Deck
@@ -56,16 +59,16 @@ class DeckSchema(SQLAlchemyAutoSchema):
             "deck_name"
         )
 
-# Create instances of the schema for the controllers to call when applying validation,
-# error handling and restrictions
+# Create instances of the schema for the controllers to call when 
+# applying validation, error handling and restrictions
 deck_schema = DeckSchema()
 decks_schema = DeckSchema(many = True)
 
 
 class PlayerSchema(SQLAlchemyAutoSchema):
     """
-    The player schema template. This organises the JSON response when fetching player
-    information such as the player's name.
+    The player schema template. This organises the JSON response when 
+    fetching player information such as the player's name.
     """
     class Meta:
         model = Player
@@ -78,16 +81,17 @@ class PlayerSchema(SQLAlchemyAutoSchema):
             "player_name"
         )
 
-# Create instances of the schema for the controllers to call when applying validation,
-# error handling and restrictions
+# Create instances of the schema for the controllers to call when 
+# applying validation, error handling and restrictions
 player_schema = PlayerSchema()
 players_schema = PlayerSchema(many = True)
 
 
 class OrganiserSchema(SQLAlchemyAutoSchema):
     """
-    The organiser schema template. This organises the JSON response when fetching 
-    organiser information such as the organiser's name, and contact details.
+    The organiser schema template. This organises the JSON response when 
+    fetching organiser information such as the organiser's name, and 
+    contact details.
     """
     class Meta:
         model = Organiser
@@ -102,16 +106,17 @@ class OrganiserSchema(SQLAlchemyAutoSchema):
             "organiser_number"
         )
 
-# Create instances of the schema for the controllers to call when applying validation,
-# error handling and restrictions
+# Create instances of the schema for the controllers to call when 
+# applying validation, error handling and restrictions
 organiser_schema = OrganiserSchema()
 organisers_schema = OrganiserSchema(many = True)
 
 
 class VenueSchema(SQLAlchemyAutoSchema):
     """
-    The venue schema template. This organises the JSON response when fetching 
-    venue information such as the venue's name, location and contact details.
+    The venue schema template. This organises the JSON response when 
+    fetching venue information such as the venue's name, location 
+    and contact details.
     """
     class Meta:
         model = Venue
@@ -126,17 +131,17 @@ class VenueSchema(SQLAlchemyAutoSchema):
             "venue_number"
         )
 
-# Create instances of the schema for the controllers to call when applying validation,
-# error handling and restrictions
+# Create instances of the schema for the controllers to call when 
+# applying validation, error handling and restrictions
 venue_schema = VenueSchema()
 venues_schema = VenueSchema(many = True)
 
 
 class DecklistSchema(SQLAlchemyAutoSchema):
     """
-    The decklist schema template. This organises the JSON response when fetching 
-    decklist information such as how many copies of a card are in this list, and
-    the name of the deck.
+    The decklist schema template. This organises the JSON response when 
+    fetching decklist information such as how many copies of a card are 
+    in this list, and the name of the deck.
     """
     class Meta:
         model = Decklist
@@ -172,7 +177,52 @@ class DecklistSchema(SQLAlchemyAutoSchema):
         )
     )
 
-# Create instances of the schema for the controllers to call when applying validation,
-# error handling and restrictions
+# Create instances of the schema for the controllers to call when 
+# applying validation, error handling and restrictions
 decklist_schema = DecklistSchema()
 decklists_schema = DecklistSchema(many = True)
+
+
+class CollectionSchema(SQLAlchemyAutoSchema):
+    """
+    The collection schema template. This organises the JSON response when 
+    fetching collection information such as the decks in a players' 
+    collection.
+    """
+    class Meta:
+        model = Collection
+        load_instance = True
+        include_fk = True
+
+        # Define the exact order of how the JSON query is displayed
+        # Player ID, Deck ID
+        fields = (
+            "collection_id",
+            "player_id",
+            "players",
+            "deck_id",
+            "decks"
+        )
+
+    # Only show the name of the player when showing player 
+    # information in the collection query
+    players = fields.Nested(
+        "PlayerSchema", 
+        only = (
+            "player_name",
+        )
+    )
+
+    # Only show the name of the deck when showing deck information in
+    # the collection query
+    decks = fields.Nested(
+        "DeckSchema", 
+        only = (
+            "deck_name",
+        )
+    )
+
+# Create instances of the schema for the controllers to call when 
+# applying validation, error handling and restrictions
+collection_schema = CollectionSchema()
+collections_schema = CollectionSchema(many = True)
