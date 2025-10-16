@@ -17,6 +17,16 @@ class Collection(db.Model):
     # Name of the table and what is referenced by Flask-SQLAlchemy methods
     __tablename__ = "collections"
 
+    # Create a unique constraint that prevents duplicate decks in a player's 
+    # collection
+    __table_args__ = (
+        db.UniqueConstraint(
+            "player_id", 
+            "deck_id", 
+            name = "unique_decks_in_player_collection"
+        ),
+    )
+
     # Table columns
     # collection_id refers to a specific deck belonging to a specific player
     collection_id = db.Column(db.Integer, primary_key = True) 
