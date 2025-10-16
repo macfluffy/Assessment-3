@@ -155,19 +155,20 @@ class DecklistSchema(SQLAlchemyAutoSchema):
 
     # Only show the name of the deck when showing deck information in
     # the decklist query
-    deck = fields.Nested(
+    decks = fields.Nested(
         "DeckSchema", 
         only = (
             "deck_name",
         )
     )
 
-    # Only show the name of the card when showing card information in 
-    # the decklist query
-    card = fields.Nested(
+    # Only show the name of the card and unique card number when 
+    # showing card information in the decklist query
+    cards = fields.Nested(
         "CardSchema", 
         only = (
-            "card_name", 
+            "card_number", 
+            "card_name"
         )
     )
 
