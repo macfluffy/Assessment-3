@@ -1,6 +1,6 @@
 """
-This file defines the model for the 'decklist' junction table and it's relationships with
-'decks' and the 'cards' models. 
+This file defines the model for the 'decklist' junction table and it's 
+relationships with 'decks' and the 'cards' models. 
 """
 
 # Local imports

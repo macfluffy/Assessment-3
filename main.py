@@ -23,8 +23,8 @@ load_dotenv()
 
 def create_app():
     """
-    Create a single instance of the Flask application which will be called from
-    the rest of the code.
+    Create a single instance of the Flask application which will 
+    be called from the rest of the code.
     """
 
     # Create the instance of the flask app
