@@ -10,7 +10,7 @@ class Decklist(db.Model):
     """
     The decklist table template contains the information about a deck's
     makeup of cards. Decks cannot exist without a card to populate it 
-    and a name for the grouping of these cards.
+    and a name for the collection of these cards.
     """
     
     # Name of the table and what is referenced by Flask-SQLAlchemy methods
@@ -26,11 +26,17 @@ class Decklist(db.Model):
     )
 
     # Table columns
-    # id = db.Column(db.Integer, primary_key = True)
-    deck_id = db.Column(db.Integer, db.ForeignKey("decks.deck_id"), nullable = False, primary_key = True)
-    card_id = db.Column(db.Integer, db.ForeignKey("cards.card_id"), nullable = False, primary_key = True)
+    deck_id = db.Column(
+        db.Integer, 
+        db.ForeignKey("decks.deck_id"), 
+        nullable = False
+    )
+    card_id = db.Column(
+        db.Integer, 
+        db.ForeignKey("cards.card_id"), 
+        nullable = False
+    )
     card_quantity = db.Column(db.Integer) # at least 1 copy
-    
 
     # Define the relationships between cards, decks, and decklists
     deck = db.relationship("Deck", back_populates = "decklists")
