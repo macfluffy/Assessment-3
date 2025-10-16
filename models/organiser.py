@@ -19,3 +19,16 @@ class Organiser(db.Model):
     organiser_name = db.Column(db.String(), nullable = False)
     organiser_email = db.Column(db.String())
     organiser_number = db.Column(db.String())
+
+    """
+    Define the special relationships:
+      - Event: An event is hosted by an organiser.
+    """
+    # Null this entire organisation's events when deleted. The event still
+    # exists, and kept in the database for ticket holders to refer to for
+    # refunds.
+    events = db.relationship(
+        "Event",
+        back_populates = "organiser",
+        cascade = "all, delete"
+    )

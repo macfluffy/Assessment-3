@@ -19,3 +19,15 @@ class Venue(db.Model):
     venue_name = db.Column(db.String(), nullable = False)
     venue_address = db.Column(db.String())
     venue_number = db.Column(db.String())
+
+    """
+    Define the special relationships:
+      - Event: An event is held at a venue/location.
+    """
+    # Null this in the events, when deleted. The event still occured, 
+    # and kept in the database for records.
+    events = db.relationship(
+        "Event",
+        back_populates = "venue",
+        cascade = "all, delete"
+    )
