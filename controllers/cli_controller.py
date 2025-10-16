@@ -15,6 +15,7 @@ from models.player import Player
 from models.organiser import Organiser
 from models.venue import Venue
 from models.decklist import Decklist
+from models.collection import Collection
 
 # Create the Template Application Interface for in-line command routes to be applied 
 # to the Flask application
@@ -190,15 +191,38 @@ def seed_tables():
     print("Venues table has been seeded.")
 
     decklists = [Decklist(
-        deck_id = 1,
-        card_id = 1,
+        deck_id = decks[0].deck_id,
+        card_id = cards[0].card_id,
         card_quantity = 3
     ), Decklist(
-        deck_id = 1,
-        card_id = 2,
+        deck_id = decks[0].deck_id,
+        card_id = cards[1].card_id,
         card_quantity = 4
     )]
 
+    # Add the decklist information to this session
     db.session.add_all(decklists)
+
+    # Commit to the session and permanently add the decklists to the 
+    # database.
     db.session.commit()
     print("Decklists seeded.")
+
+    collections = [Collection(
+        player_id = players[0].player_id,
+        deck_id = decks[0].deck_id
+    ), Collection(
+        player_id = players[0].player_id,
+        deck_id = decks[1].deck_id
+    ), Collection(
+        player_id = players[1].player_id,
+        deck_id = decks[1].deck_id
+    )]
+
+    # Add the collections information to this session
+    db.session.add_all(collections)
+
+    # Commit to the session and permanently add the collections to the 
+    # database.
+    db.session.commit()
+    print("Collection seeded.")
