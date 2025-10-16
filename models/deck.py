@@ -18,12 +18,21 @@ class Deck(db.Model):
     deck_name = db.Column(db.String(), nullable = False)
 
     """
-    Define the relationship between cards and the decks they are put in.
-    A decklist can't exist if the deck if it does not have a name.
+    Define the special relationships:
+      - Decklist: A decklist can't be referenced if the deck does not 
+                  have a name.
+      - Collection: A player's collection needs to have decks in it
+                    to be considered a collection.
     """
-    # Delete decklists associated to the card when they are deleted
+    # Delete the decklist associated to this deck when they are deleted
     decklists = db.relationship(
         "Decklist", 
         back_populates = "deck", 
+        cascade = "all, delete"
+    )
+    # Delete this deck in all players' collections when deleted
+    collections = db.relationship(
+        "Collection",
+        back_populates = "deck",
         cascade = "all, delete"
     )

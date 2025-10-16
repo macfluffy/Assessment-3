@@ -17,3 +17,16 @@ class Player(db.Model):
     # Table columns
     player_id = db.Column(db.Integer, primary_key = True)
     player_name = db.Column(db.String(), nullable = False)
+
+    """
+    Define the special relationships:
+      - Collection: A collection belongs to a player. In it is a 
+                    collection of their decks.
+    """
+    # Delete this entire player's collection when deleted. No player, 
+    # no collection
+    collections = db.relationship(
+        "Collection",
+        back_populates = "player",
+        cascade = "all, delete"
+    )
