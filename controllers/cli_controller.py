@@ -16,6 +16,7 @@ from models.organiser import Organiser
 from models.venue import Venue
 from models.decklist import Decklist
 from models.collection import Collection
+from models.event import Event, EventStatus
 
 # Create the Template Application Interface for in-line command routes to be applied 
 # to the Flask application
@@ -226,3 +227,45 @@ def seed_tables():
     # database.
     db.session.commit()
     print("Collection seeded.")
+
+    events = [Event(
+        organiser_id = organisers[0].organiser_id,
+        venue_id = venues[1].venue_id,
+        event_name = "BandaiFest 2025",
+        player_cap = 255,
+        event_date = "2025-10-10",
+        event_details = "Celebrate the 25th anniversary of Digimon!",
+        event_status = EventStatus.Completed
+    ), Event(
+        organiser_id = organisers[1].organiser_id,
+        venue_id = venues[0].venue_id,
+        event_name = "Digimon Sydney Regionals 2025",
+        player_cap = 128,
+        event_date = "2025-12-10",
+        event_details = "Compete to represent Australia at World's 2025!",
+        event_status = EventStatus.Planned
+    ), Event(
+        organiser_id = organisers[2].organiser_id,
+        venue_id = venues[2].venue_id,
+        event_name = "Pax Games",
+        player_cap = 32,
+        event_date = "2025-10-16",
+        event_details = "Check out the latest in gaming news!",
+        event_status = EventStatus.Running
+    ), Event(
+        organiser_id = organisers[0].organiser_id,
+        venue_id = venues[0].venue_id,
+        event_name = "Games Expo 2025",
+        player_cap = 32,
+        event_date = "2025-09-10",
+        event_details = "Latest in games!",
+        event_status = EventStatus.Cancelled
+    )]
+
+    # Add the events information to this session
+    db.session.add_all(events)
+
+    # Commit to the session and permanently add the events to the 
+    # database.
+    db.session.commit()
+    print("Event seeded.")
