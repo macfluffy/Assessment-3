@@ -18,6 +18,7 @@ from models.decklist import Decklist
 from models.collection import Collection
 from models.event import Event, EventStatus
 from models.registration import Registration
+from models.ranking import Ranking
 
 # Create the Template Application Interface for in-line command routes to be applied 
 # to the Flask application
@@ -309,3 +310,29 @@ def seed_tables():
     # database.
     db.session.commit()
     print("Registration seeded.")
+
+    rankings = [Ranking(
+        player_id = players[1].player_id,
+        event_id = events[2].event_id,
+        placement = 0
+    ), Ranking(
+        player_id = players[2].player_id,
+        event_id = events[2].event_id,
+        placement = 0
+    ), Ranking(
+        player_id = players[0].player_id,
+        event_id = events[2].event_id,
+        placement = 0
+    ), Ranking(
+        player_id = players[0].player_id,
+        event_id = events[0].event_id,
+        placement = 0
+    )]
+
+    # Add the rankings information to this session
+    db.session.add_all(rankings)
+
+    # Commit to the session and permanently add the rankings to the 
+    # database.
+    db.session.commit()
+    print("Ranking seeded.")

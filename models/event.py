@@ -74,3 +74,9 @@ class Event(db.Model):
         back_populates = "event",
         cascade = "all, delete"
     )
+    # Delete the ranking if the event is deleted
+    rankings = db.relationship(
+        "Ranking",
+        back_populates = "event",
+        cascade = "all, delete"
+    )

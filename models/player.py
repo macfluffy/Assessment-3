@@ -38,3 +38,9 @@ class Player(db.Model):
         back_populates = "player",
         cascade = "all, delete"
     )
+    # Delete the ranking if the player is deleted
+    rankings = db.relationship(
+        "Ranking",
+        back_populates = "player",
+        cascade = "all, delete"
+    )
