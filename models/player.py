@@ -22,11 +22,19 @@ class Player(db.Model):
     Define the special relationships:
       - Collection: A collection belongs to a player. In it is a 
                     collection of their decks.
+      - Registration: A player needs to register to attend an 
+                      event.
     """
     # Delete this entire player's collection when deleted. No player, 
     # no collection
     collections = db.relationship(
         "Collection",
+        back_populates = "player",
+        cascade = "all, delete"
+    )
+    # Delete the registration if the player is deleted
+    registrations = db.relationship(
+        "Registration",
         back_populates = "player",
         cascade = "all, delete"
     )

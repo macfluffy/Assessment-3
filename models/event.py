@@ -61,8 +61,16 @@ class Event(db.Model):
     event_status = db.Column(db.Enum(EventStatus))
 
     """
-    An event is hosted by an organiser at a venue.
+    Relationships:
+        - Event: An event is hosted by an organiser at a venue.
+        - Registration: An event needs registration to attend.
     """
     # Define the relationships between organisers, venues, and events
     organiser = db.relationship("Organiser", back_populates = "events")
     venue = db.relationship("Venue", back_populates = "events")
+    # Delete the registration if the event is deleted
+    registrations = db.relationship(
+        "Registration",
+        back_populates = "event",
+        cascade = "all, delete"
+    )
