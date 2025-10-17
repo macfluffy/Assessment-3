@@ -315,7 +315,7 @@ class RegistrationSchema(SQLAlchemyAutoSchema):
 
     # Only show the name of the player when showing player 
     # information in the registration query
-    PlayerSchema = fields.Nested(
+    players = fields.Nested(
         "PlayerSchema", 
         only = (
             "player_name",
