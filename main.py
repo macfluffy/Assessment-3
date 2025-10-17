@@ -20,6 +20,7 @@ from controllers.venue_controller import venuesBp
 from controllers.decklist_controller import decklistsBp
 from controllers.collection_controller import collectionsBp
 from controllers.event_controller import eventsBp
+from controllers.registration_controller import registrationsBp
 
 load_dotenv()
 
@@ -52,4 +53,5 @@ def create_app():
     app.register_blueprint(decklistsBp)
     app.register_blueprint(collectionsBp)
     app.register_blueprint(eventsBp)
+    app.register_blueprint(registrationsBp)
     return app
