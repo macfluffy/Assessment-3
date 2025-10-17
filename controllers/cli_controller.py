@@ -17,6 +17,7 @@ from models.venue import Venue
 from models.decklist import Decklist
 from models.collection import Collection
 from models.event import Event, EventStatus
+from models.registration import Registration
 
 # Create the Template Application Interface for in-line command routes to be applied 
 # to the Flask application
@@ -217,6 +218,15 @@ def seed_tables():
         deck_id = decks[1].deck_id
     ), Collection(
         player_id = players[1].player_id,
+        deck_id = decks[0].deck_id
+    ), Collection(
+        player_id = players[1].player_id,
+        deck_id = decks[1].deck_id
+    ), Collection(
+        player_id = players[2].player_id,
+        deck_id = decks[0].deck_id
+    ), Collection(
+        player_id = players[2].player_id,
         deck_id = decks[1].deck_id
     )]
 
@@ -269,3 +279,33 @@ def seed_tables():
     # database.
     db.session.commit()
     print("Event seeded.")
+
+    registrations = [Registration(
+        event_id = events[2].event_id,
+        player_id = players[1].player_id,
+        registered_deck = collections[2].collection_id,
+        registration_date = "2025-10-08"
+    ), Registration(
+        event_id = events[2].event_id,
+        player_id = players[0].player_id,
+        registered_deck = collections[0].collection_id,
+        registration_date = "2025-10-13"
+    ), Registration(
+        event_id = events[2].event_id,
+        player_id = players[2].player_id,
+        registered_deck = collections[5].collection_id,
+        registration_date = "2025-10-09"
+    ), Registration(
+        event_id = events[1].event_id,
+        player_id = players[2].player_id,
+        registered_deck = collections[5].collection_id,
+        registration_date = "2025-10-10"
+    )]
+
+    # Add the registrations information to this session
+    db.session.add_all(registrations)
+
+    # Commit to the session and permanently add the registrations to the 
+    # database.
+    db.session.commit()
+    print("Registration seeded.")
