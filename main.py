@@ -22,6 +22,7 @@ from controllers.collection_controller import collectionsBp
 from controllers.event_controller import eventsBp
 from controllers.registration_controller import registrationsBp
 from controllers.ranking_controller import rankingsBp
+from utils.error_handler import register_error_handlers
 
 load_dotenv()
 
@@ -56,4 +57,8 @@ def create_app():
     app.register_blueprint(eventsBp)
     app.register_blueprint(registrationsBp)
     app.register_blueprint(rankingsBp)
+
+    # Apply the imported error handling created in the utilities folder to 
+    # this Flask app instance
+    register_error_handlers(app)
     return app
