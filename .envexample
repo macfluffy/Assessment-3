@@ -1,0 +1,1 @@
+DATABASE_URI = database+driver://username:password@server:port/databasename
