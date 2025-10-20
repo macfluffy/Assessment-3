@@ -50,7 +50,11 @@ class Card(db.Model):
 
     # Table columns
     card_id = db.Column(db.Integer, primary_key = True)
-    card_number = db.Column(db.String(), nullable = False)
+    card_number = db.Column(
+        db.String(), 
+        unique = True,
+        nullable = False
+    )
     card_name = db.Column(db.String(), nullable = False)
     card_type = db.Column(db.Enum(CardType), nullable = False)
     card_rarity = db.Column(db.Enum(CardRarity), nullable = False)

@@ -6,7 +6,7 @@ relationships between each of these tables.
 
 # Installed import packages
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from marshmallow import fields
+from marshmallow import fields, ValidationError, validates
 
 # Local imports - Tables
 from models.card import Card
@@ -172,13 +172,21 @@ class DecklistSchema(SQLAlchemyAutoSchema):
 
     # Only show the name of the card and unique card number when 
     # showing card information in the decklist query
-    cards = fields.Nested(
-        "CardSchema", 
-        only = (
-            "card_number", 
-            "card_name"
+    cards = fields.List(
+        fields.Nested(
+            "CardSchema", 
+            only = (
+                "card_number", 
+                "card_name"
+            )
         )
     )
+
+    # At least 1 copy of a card needs to be added to the decklist
+    @validates('card_quantity')
+    def validate_cards_added(self, card_quantity, data_key):
+        if card_quantity < 1:
+            raise ValidationError("At least 1 copy of this card needs to be added into the decklist.")
 
 # Create instances of the schema for the controllers to call when 
 # applying validation, error handling and restrictions
@@ -372,7 +380,7 @@ class RankingSchema(SQLAlchemyAutoSchema):
             "player_name",
         )
     )
-    
+
     # Only show the name of the card and unique card number when 
     # showing card information in the ranking query
     events = fields.Nested(
