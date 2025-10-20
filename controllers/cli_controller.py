@@ -1,14 +1,16 @@
 """
-This file creates the Create, Read, Update, and Delete operations to our command
-line interface through REST API design using Flask Blueprint. This file creates
-the commands to automate the creation and seeding of the LMS database.
+This file creates the Create, Read, Update, and Delete operations 
+to our command line interface through REST API design using Flask 
+Blueprint. This file creates the commands to automate the creation 
+and seeding of the Digiscan database.
 """
 
 # Installed import packages
 from flask import Blueprint
 
-# Local imports
-from init import db
+# Local imports - The Flask App instance (db) and the table 
+# templates (models) to populate the database
+from init import db # References app created on initialisation
 from models.card import Card, CardRarity, CardType
 from models.deck import Deck
 from models.player import Player
@@ -20,8 +22,8 @@ from models.event import Event, EventStatus
 from models.registration import Registration
 from models.ranking import Ranking
 
-# Create the Template Application Interface for in-line command routes to be applied 
-# to the Flask application
+# Create the Template Application Interface for in-line command 
+# routes to be applied to the Flask application
 dbCommands = Blueprint("db", __name__)
 
 
@@ -32,7 +34,7 @@ API Routes
 @dbCommands.cli.command("create")
 def createTables():
     """
-    Creates all the tables as defined in the models subfolder
+    Creates all the tables as defined in all the models
     """
     db.create_all()
     print("Tables created.")
@@ -41,7 +43,8 @@ def createTables():
 @dbCommands.cli.command("drop")
 def dropTables():
     """
-    This function deletes all tables and leaves an empty database
+    This function deletes all tables and leaves an empty 
+    database
     """
     db.drop_all()
     print("Tables dropped.")
@@ -49,8 +52,10 @@ def dropTables():
 @dbCommands.cli.command("seed")
 def seed_tables():
     """
-    Populate the table with initial data. Card and deck information is added 
-    into the LMS database.
+    Populate the table with initial data. Information on 
+    cards, decks, players, venues, organisers, and the 
+    verbial actions such as hosting events, player collections,
+    player rankings are added into the Digiscan database.
     """
     # Create cards to add to the cards database
     cards = [Card(
@@ -165,8 +170,8 @@ def seed_tables():
     # Add the organiser information to this session
     db.session.add_all(organisers)
 
-    # Commit to the session and permanently add the organisers to the 
-    # database.
+    # Commit to the session and permanently add the organisers 
+    # to the database.
     db.session.commit()
     print("Organisers table has been seeded.")
 
@@ -188,8 +193,8 @@ def seed_tables():
     # Add the venue information to this session
     db.session.add_all(venues)
 
-    # Commit to the session and permanently add the venues to the 
-    # database.
+    # Commit to the session and permanently add the venues 
+    # to the database.
     db.session.commit()
     print("Venues table has been seeded.")
 
@@ -206,8 +211,8 @@ def seed_tables():
     # Add the decklist information to this session
     db.session.add_all(decklists)
 
-    # Commit to the session and permanently add the decklists to the 
-    # database.
+    # Commit to the session and permanently add the decklists 
+    # to the database.
     db.session.commit()
     print("Decklists seeded.")
 
@@ -234,8 +239,8 @@ def seed_tables():
     # Add the collections information to this session
     db.session.add_all(collections)
 
-    # Commit to the session and permanently add the collections to the 
-    # database.
+    # Commit to the session and permanently add the 
+    # collections to the database.
     db.session.commit()
     print("Collection seeded.")
 
@@ -276,8 +281,8 @@ def seed_tables():
     # Add the events information to this session
     db.session.add_all(events)
 
-    # Commit to the session and permanently add the events to the 
-    # database.
+    # Commit to the session and permanently add the 
+    # events to the database.
     db.session.commit()
     print("Event seeded.")
 
@@ -306,8 +311,8 @@ def seed_tables():
     # Add the registrations information to this session
     db.session.add_all(registrations)
 
-    # Commit to the session and permanently add the registrations to the 
-    # database.
+    # Commit to the session and permanently add the 
+    # registrations to the database.
     db.session.commit()
     print("Registration seeded.")
 
@@ -332,7 +337,7 @@ def seed_tables():
     # Add the rankings information to this session
     db.session.add_all(rankings)
 
-    # Commit to the session and permanently add the rankings to the 
-    # database.
+    # Commit to the session and permanently add the 
+    # rankings to the database.
     db.session.commit()
     print("Ranking seeded.")
