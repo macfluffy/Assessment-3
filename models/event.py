@@ -48,11 +48,13 @@ class Event(db.Model):
     event_id = db.Column(db.Integer, primary_key = True) 
     organiser_id = db.Column(
         db.Integer, 
-        db.ForeignKey("organisers.organiser_id")
+        db.ForeignKey("organisers.organiser_id"),
+        nullable = False
     )
     venue_id = db.Column(
         db.Integer, 
-        db.ForeignKey("venues.venue_id")
+        db.ForeignKey("venues.venue_id"),
+        nullable = False
     )
     event_name = db.Column(db.String())
     player_cap = db.Column(db.Integer)
