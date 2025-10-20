@@ -9,11 +9,13 @@ from flask import Blueprint, jsonify, request
 # Local imports
 from init import db
 from models.decklist import Decklist
-from schemas.schemas import decklist_schema, decklists_schema
+# from schemas.schemas import decklist_schema, decklists_schema
+from schemas.decklist_schema import decklist_schema, decklists_schema
 
 # Create the Template Web Application Interface for card routes to be applied 
 # to the Flask application
 decklistsBp = Blueprint("decklists", __name__, url_prefix = "/decklists")
+
 
 
 """
@@ -52,8 +54,12 @@ def create_decklist():
         card_quantity = bodyData.get("card_quantity")        
     )
     
-    # Add the decklist data into the session
+    # Validate and add the decklist data into the session
     db.session.add(addCardToDeck)
+    decklist_schema.load(
+        decklist_schema.dump(addCardToDeck), 
+        session = db.session
+    )
     
     # Commit and write the decklist data from this session into 
     # the postgresql database

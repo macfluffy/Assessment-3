@@ -14,7 +14,7 @@ from models.deck import Deck
 from models.player import Player
 from models.organiser import Organiser
 from models.venue import Venue
-from models.decklist import Decklist
+# from models.decklist import Decklist
 from models.collection import Collection
 from models.event import Event
 from models.registration import Registration
@@ -140,58 +140,7 @@ venue_schema = VenueSchema()
 venues_schema = VenueSchema(many = True)
 
 
-class DecklistSchema(SQLAlchemyAutoSchema):
-    """
-    The decklist schema template. This organises the JSON response when 
-    fetching decklist information such as how many copies of a card are 
-    in this list, and the name of the deck.
-    """
-    class Meta:
-        model = Decklist
-        load_instance = True
-        include_fk = True
 
-        # Define the exact order of how the JSON query is displayed
-        # Deck Info, Card Info, Card Quantity
-        fields = (
-            "deck_id",
-            "decks",
-            "card_quantity",
-            "card_id", 
-            "cards"
-        )
-
-    # Only show the name of the deck when showing deck information in
-    # the decklist query
-    decks = fields.Nested(
-        "DeckSchema", 
-        only = (
-            "deck_name",
-        )
-    )
-
-    # Only show the name of the card and unique card number when 
-    # showing card information in the decklist query
-    cards = fields.List(
-        fields.Nested(
-            "CardSchema", 
-            only = (
-                "card_number", 
-                "card_name"
-            )
-        )
-    )
-
-    # At least 1 copy of a card needs to be added to the decklist
-    @validates('card_quantity')
-    def validate_cards_added(self, card_quantity, data_key):
-        if card_quantity < 1:
-            raise ValidationError("At least 1 copy of this card needs to be added into the decklist.")
-
-# Create instances of the schema for the controllers to call when 
-# applying validation, error handling and restrictions
-decklist_schema = DecklistSchema()
-decklists_schema = DecklistSchema(many = True)
 
 
 class CollectionSchema(SQLAlchemyAutoSchema):
