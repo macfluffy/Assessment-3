@@ -1,1 +1,6 @@
+"""
+This is an example on how to setup the database URI. Follow 
+the template below in your own .env file.
+"""
+
 DATABASE_URI = database+driver://username:password@server:port/databasename
