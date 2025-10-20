@@ -15,15 +15,6 @@ class Ranking(db.Model):
     # Name of the table and what is referenced by Flask-SQLAlchemy methods
     __tablename__ = "rankings"
     
-    # Define the primary key as a union of both the event_id and player_id
-    __table_args__ = (
-        db.PrimaryKeyConstraint(
-            "player_id", 
-            "event_id", 
-            name = "player_ranking"
-        ),
-    )
-
     # Table columns
     player_id = db.Column(
         db.Integer, 
@@ -40,6 +31,17 @@ class Ranking(db.Model):
     wins = db.Column(db.Integer, default = 0)
     losses = db.Column(db.Integer, default = 0)
     ties = db.Column(db.Integer, default = 0)
+
+    # Define the primary key as a union of both the event_id and player_id
+    # Primary key means player & event combination uniqueness and cannot 
+    # be nulled.
+    __table_args__ = (
+        db.PrimaryKeyConstraint(
+            "player_id", 
+            "event_id", 
+            name = "player_ranking"
+        ),
+    )
 
     # Define the relationships between events, players, and rankings
     player = db.relationship("Player", back_populates = "rankings")
