@@ -3,8 +3,8 @@ This file defines the model for the 'collection' junction table and it's
 relationships with 'decks' and the 'players' models. 
 """
 
-# Local imports
-from init import db
+# Local imports - The Flask App instance (db)
+from init import db # References app created on initialisation
 
 class Collection(db.Model):
     """
@@ -16,16 +16,6 @@ class Collection(db.Model):
     
     # Name of the table and what is referenced by Flask-SQLAlchemy methods
     __tablename__ = "collections"
-
-    # Create a unique constraint that prevents duplicate decks in a player's 
-    # collection
-    __table_args__ = (
-        db.UniqueConstraint(
-            "player_id", 
-            "deck_id", 
-            name = "unique_decks_in_player_collection"
-        ),
-    )
 
     # Table columns
     # collection_id refers to a specific deck belonging to a specific player
@@ -42,8 +32,20 @@ class Collection(db.Model):
     )
 
     """
-    A collection is a players' stash of owned decks.
+    A collection is a players' stash of owned decks. Create the constraints 
+    and relationships between this table and the other tables to reflect 
+    this behaviour.
     """
+    # Create a unique constraint that prevents duplicate decks in a player's 
+    # collection
+    __table_args__ = (
+        db.UniqueConstraint(
+            "player_id", 
+            "deck_id", 
+            name = "unique_decks_in_player_collection"
+        ),
+    )
+
     # Define the relationships between players, decks, and collections
     player = db.relationship("Player", back_populates = "collections")
     deck = db.relationship("Deck", back_populates = "collections")
