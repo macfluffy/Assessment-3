@@ -1,17 +1,18 @@
 # Table of Contents:
 
 - [Requirements](#-Requirements)
-        - [Packages](##-Packages)
-        - [Additional Software](##-Additional-Software)
+  - [Packages](##-Packages)
+  - [Additional Software](##-Additional-Software)
+
 - [Installation Guide](#-Installation-Guide)
-        -[1. Clone the repository](##-1.-Clone-the-repository)
-        - [2. Setting up your virtual environment](##-2.-Setting-up-your-virtual-environment)
-        - [3. Installing the packages](##-3.-Installing-the-packages)
-        - [4. Installing PostgreSQL](##-4.-Installing-PostgreSQL)
-        - [5. Setting up the database](##-5.-Setting-up-the-database)
-        - [6. Configuring your environment variables](##-6.-Configuring-your-environment-variables)
-        - [7. Populating the database](##-7.-Populating-the-database)
-        - [8. Starting the Flask server](##-8.-Starting-the-Flask-server)
+  - [1. Clone the repository](##-1.-Clone-the-repository)
+  - [2. Setting up your virtual environment](##-2.-Setting-up-your-virtual-environment)
+  - [3. Installing the packages](##-3.-Installing-the-packages)
+  - [4. Installing PostgreSQL](##-4.-Installing-PostgreSQL)
+  - [5. Setting up the database](##-5.-Setting-up-the-database)
+  - [6. Configuring your environment variables](##-6.-Configuring-your-environment-variables)
+  - [7. Populating the database](##-7.-Populating-the-database)
+  - [8. Starting the Flask server](##-8.-Starting-the-Flask-server)
 
 # Requirements
 - Python3
