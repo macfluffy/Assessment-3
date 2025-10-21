@@ -1,35 +1,14 @@
-Overview
-This is a TCG tournament tracking database.
-Expanded to importing decklists to register decks and for tournament organisers
-to notify players
+# Overview
+Digiscan is a one-stop application for tracking Digimon TCG card releases, player collections, tournaments, and tournament results.
 
-Use Flask
-SQL Alchemy
-Marshmallow
-Psycopg2
-dotenv
+# Table of Contents
 
-These packages to create an ORM package for managing routes and handling server responses.
-
-Requirements:
-Python3
-Windows or MacOS
+- [Installation Guide](Assessment-3.wiki/docs/installation.md)
+- [API References](Assessment-3.wiki/docs/api-references.md)
+- [Features](#-Features)
 
 
-Installation
+# Features
 
-Highly recommend you setup your virtual environment first and install the packages there.
-
-Setting up your virtual environment
-
-python3 -m venv .venv
-
-Open up your virtual environment
-
-source .venv/bin/activate
-
-How to install packages
-
-use
-
-pip install -r requirements.txt
+- RESTful API 
+- Structured Database
