@@ -10,7 +10,7 @@ from flask import Blueprint, jsonify, request
 # Local imports
 from init import db
 from models.collection import Collection
-from schemas.schemas import collection_schema, collections_schema
+from schemas.collection_schema import collection_schema, collections_schema
 
 # Create the Template Web Application Interface for card routes 
 # to be applied to the Flask application
