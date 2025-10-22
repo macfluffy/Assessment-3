@@ -1,12 +1,12 @@
 """
-This file creates the structure on how decklist data should be 
+This file creates the structure on how card data should be 
 organised within the relational database, their constraints, and 
-the relationships between decks, cards, and decklists.
+the relationships between cards, decks, and decklists.
 """
 
 # Installed import packages
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema, auto_field
-from marshmallow.validate import Length, OneOf
+from marshmallow.validate import Length, OneOf, Regexp
 from marshmallow import fields
 
 # Local imports - Tables & Enums
@@ -39,7 +39,10 @@ class CardSchema(SQLAlchemyAutoSchema):
             Length(
                 min = 1,
                 error = "Card cannot have a blank number"
-            ),
+            ), Regexp(
+                r"[^\s]",
+                error = "Card number cannot start with a blank."
+            )
         ]
     )
 
@@ -49,7 +52,10 @@ class CardSchema(SQLAlchemyAutoSchema):
             Length(
                 min = 1,
                 error = "Card cannot have a blank name."
-            ),
+            ), Regexp(
+                r"[^\s]",
+                error = "A card's name cannot start with a blank."
+            )
         ]
     )
 
