@@ -9,7 +9,7 @@ from flask import Blueprint, jsonify, request
 # Local imports
 from init import db
 from models.deck import Deck
-from schemas.schemas import deck_schema, decks_schema
+from schemas.deck_schema import deck_schema, decks_schema
 
 # Create the Template Web Application Interface for deck routes to be applied 
 # to the Flask application
@@ -44,8 +44,10 @@ def createDeck():
     bodyData = request.get_json()
     
     # Create a new deck object with the request body data as the attributes
-    newDeck = Deck(
-        deck_name = bodyData.get("deck_name")
+    # using validation rules in the schema
+    newDeck = deck_schema.load(
+        bodyData,
+        session = db.session
     )
 
     # Add the deck data into the session
