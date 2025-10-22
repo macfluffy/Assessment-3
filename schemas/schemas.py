@@ -11,7 +11,7 @@ from marshmallow import fields, ValidationError, validates
 # Local imports - Tables
 # from models.card import Card
 # from models.deck import Deck
-from models.player import Player
+# from models.player import Player
 from models.organiser import Organiser
 from models.venue import Venue
 # from models.decklist import Decklist
@@ -19,27 +19,6 @@ from models.collection import Collection
 from models.event import Event
 from models.registration import Registration
 from models.ranking import Ranking
-
-class PlayerSchema(SQLAlchemyAutoSchema):
-    """
-    The player schema template. This organises the JSON response when 
-    fetching player information such as the player's name.
-    """
-    class Meta:
-        model = Player
-        load_instance = True
-
-        # Define the exact order of how the JSON query is displayed
-        # Player Name
-        fields = (
-            "player_id", 
-            "player_name"
-        )
-
-# Create instances of the schema for the controllers to call when 
-# applying validation, error handling and restrictions
-player_schema = PlayerSchema()
-players_schema = PlayerSchema(many = True)
 
 
 class OrganiserSchema(SQLAlchemyAutoSchema):
