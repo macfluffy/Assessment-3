@@ -3,7 +3,7 @@ This file defines the model for the 'event' junction table and it's
 relationships with 'organisers' and the 'venues' models. 
 """
 # Built-in imports
-import enum
+from enum import StrEnum, auto
 from datetime import date
 
 # Local imports
@@ -15,15 +15,16 @@ Enumerated values for attributes of an event that have a value from a
 pre-defined set
 """
 
-class EventStatus(enum.Enum):
+class EventStatus(StrEnum):
     """
     This defines the activity status of an event.
     """
-    Cancelled = "cancelled"
-    Completed = "completed"
-    Onhold = "onhold"
-    Planned = "planned"
-    Running = "running"
+    # Auto uses the enum name as the string value
+    Cancelled = auto()
+    Completed = auto()
+    Onhold = auto()
+    Planned = auto()
+    Running = auto()
 
 
 class Event(db.Model):
@@ -60,7 +61,10 @@ class Event(db.Model):
     player_cap = db.Column(db.Integer)
     event_date = db.Column(db.Date, default = date.today())
     event_details = db.Column(db.String())
-    event_status = db.Column(db.Enum(EventStatus))
+    event_status = db.Column(
+        db.Enum(EventStatus), 
+        default = EventStatus.Planned
+    )
 
     """
     Relationships:
