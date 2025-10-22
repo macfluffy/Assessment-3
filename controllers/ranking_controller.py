@@ -1,6 +1,6 @@
 """
-This file creates the Create, Read, Update, and Delete operations to the ranking data,
-through REST API design using Flask Blueprint.
+This file creates the Create, Read, Update, and Delete operations 
+to the ranking data, through REST API design using Flask Blueprint.
 """
 
 # Installed import packages
@@ -9,10 +9,10 @@ from flask import Blueprint, jsonify, request
 # Local imports
 from init import db
 from models.ranking import Ranking
-from schemas.schemas import ranking_schema, rankings_schema
+from schemas.ranking_schema import ranking_schema, rankings_schema
 
-# Create the Template Web Application Interface for card routes to be applied 
-# to the Flask application
+# Create the Template Web Application Interface for card routes 
+# to be applied to the Flask application
 rankingsBp = Blueprint(
     "rankings", 
     __name__, 
@@ -46,7 +46,8 @@ def create_ranking():
     """
     Retrieve the body data and add the details of the ranking 
     into the ranking database, this is the equivalent of POST 
-    in postgresql. This is how players officially signup for events.
+    in postgresql. This is how players officially signup for 
+    events.
     """
     # Fetch the ranking information from the request body
     bodyData = request.get_json()
@@ -54,16 +55,11 @@ def create_ranking():
     # Create a new entry into the ranking using the request body 
     # data and the ranking schema will organise the data to their 
     # matching attributes with validation rules implemented.
-    newRanking = Ranking(
-        player_id = bodyData.get("player_id"),
-        event_id = bodyData.get("event_id"),
-        placement = bodyData.get("placement"),
-        points = bodyData.get("points"),
-        wins = bodyData.get("wins"),
-        losses = bodyData.get("losses"),
-        ties = bodyData.get("ties")        
+    newRanking = ranking_schema.load(
+        bodyData,
+        session = db.session
     )
-    
+   
     # Add the ranking data into the session
     db.session.add(newRanking)
     

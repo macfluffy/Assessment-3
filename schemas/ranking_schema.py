@@ -1,7 +1,7 @@
 """
-This file creates the structure on how the data should be organised 
-within our relational database, their constraints, and the 
-relationships between each of these tables.
+This file creates the structure on how ranking data should be 
+organised within our relational database, their constraints, 
+and the relationships between each of these tables.
 """
 
 # Installed import packages
@@ -9,24 +9,15 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow import fields, ValidationError, validates
 
 # Local imports - Tables
-# from models.card import Card
-# from models.deck import Deck
-# from models.player import Player
-# from models.organiser import Organiser
-# from models.venue import Venue
-# from models.decklist import Decklist
-# from models.collection import Collection
-# from models.event import Event
-# from models.registration import Registration
 from models.ranking import Ranking
 
 
 class RankingSchema(SQLAlchemyAutoSchema):
     """
-    The ranking schema template. This organises the JSON response when 
-    fetching ranking information such as the event a player is 
-    attending to, the player playing at the event, and their performance
-    at the event.
+    The ranking schema template. This organises the JSON response 
+    when fetching ranking information such as the event a player is 
+    attending to, the player playing at the event, and their 
+    performance at the event.
     """
     class Meta:
         model = Ranking
