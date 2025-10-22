@@ -11,7 +11,6 @@ from flask import Blueprint, jsonify, request
 from init import db
 from models.event import Event
 from schemas.event_schema import event_schema, events_schema
-# from schemas.schemas import event_schema, events_schema
 
 # Create the Template Web Application Interface for card routes 
 # to be applied to the Flask application
@@ -62,16 +61,7 @@ def create_event():
         bodyData,
         session = db.session
     )
-    # newEvent = Event(
-    #     organiser_id = bodyData.get("organiser_id"),
-    #     venue_id = bodyData.get("venue_id"),
-    #     event_name = bodyData.get("event_name"),
-    #     player_cap = bodyData.get("player_cap"),
-    #     event_date = bodyData.get("event_date"),
-    #     event_details = bodyData.get("event_details"),
-    #     event_status = bodyData.get("event_status")
-    # )
-    
+
     # Add the event data into the session
     db.session.add(newEvent)
     
