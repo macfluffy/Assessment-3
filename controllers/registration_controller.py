@@ -1,6 +1,6 @@
 """
-This file creates the Create, Read, Update, and Delete operations to the registration data,
-through REST API design using Flask Blueprint.
+This file creates the Create, Read, Update, and Delete operations to 
+the registration data, through REST API design using Flask Blueprint.
 """
 
 # Installed import packages
@@ -9,10 +9,10 @@ from flask import Blueprint, jsonify, request
 # Local imports
 from init import db
 from models.registration import Registration
-from schemas.schemas import registration_schema, registrations_schema
+from schemas.registration_schema import registration_schema, registrations_schema
 
-# Create the Template Web Application Interface for card routes to be applied 
-# to the Flask application
+# Create the Template Web Application Interface for card routes to 
+# be applied to the Flask application
 registrationsBp = Blueprint(
     "registrations", 
     __name__, 
@@ -54,13 +54,11 @@ def create_registration():
     # Create a new entry into the registration using the request body 
     # data and the registration schema will organise the data to their 
     # matching attributes with validation rules implemented.
-    newRegistration = Registration(
-        event_id = bodyData.get("event_id"),
-        player_id = bodyData.get("player_id"),
-        registered_deck = bodyData.get("registered_deck"),
-        registration_date = bodyData.get("registration_date")        
+    newRegistration = registration_schema.load(
+        bodyData,
+        session = db.session
     )
-    
+   
     # Add the registration data into the session
     db.session.add(newRegistration)
     
