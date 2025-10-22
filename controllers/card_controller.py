@@ -44,12 +44,13 @@ def createCard():
     bodyData = request.get_json()
     
     # Create a new card object with the request body data as the attributes
+    # with validation rules applied
     newCard = card_schema.load(
         bodyData, 
         session = db.session
     )
 
-    # Validate and add the card data into the session
+    # Add the card data into the session
     db.session.add(newCard)
     
     # Commit and write the card data from this session into 
