@@ -16,59 +16,9 @@ from marshmallow import fields, ValidationError, validates
 # from models.venue import Venue
 # from models.decklist import Decklist
 # from models.collection import Collection
-from models.event import Event
+# from models.event import Event
 from models.registration import Registration
 from models.ranking import Ranking
-
-
-class EventSchema(SQLAlchemyAutoSchema):
-    """
-    The event schema template. This organises the JSON response when 
-    fetching event information such as the organiser, venue, details
-    about the event, and the player caps.
-    """
-    class Meta:
-        model = Event
-        load_instance = True
-        include_fk = True
-
-        # Define the exact order of how the JSON query is displayed
-        # Event ID, Organiser ID, Venue ID, Event Details
-        fields = (
-            "event_id",
-            "organiser_id",
-            "organisers",
-            "venue_id",
-            "venues",
-            "event_name",
-            "player_cap",
-            "event_date",
-            "event_details",
-            "event_status"
-        )
-
-    # Only show the name of the organiser when showing organiser 
-    # information in the event query
-    organisers = fields.Nested(
-        "OrganiserSchema", 
-        only = (
-            "organiser_name",
-        )
-    )
-
-    # Only show the name of the venue when showing venue information in
-    # the event query
-    venues = fields.Nested(
-        "VenueSchema", 
-        only = (
-            "venue_name",
-        )
-    )
-
-# Create instances of the schema for the controllers to call when 
-# applying validation, error handling and restrictions
-event_schema = EventSchema()
-events_schema = EventSchema(many = True)
 
 
 class RegistrationSchema(SQLAlchemyAutoSchema):
