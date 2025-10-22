@@ -9,7 +9,7 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow import fields, ValidationError, validates
 
 # Local imports - Tables
-from models.card import Card
+# from models.card import Card
 from models.deck import Deck
 from models.player import Player
 from models.organiser import Organiser
@@ -20,30 +20,7 @@ from models.event import Event
 from models.registration import Registration
 from models.ranking import Ranking
 
-class CardSchema(SQLAlchemyAutoSchema):
-    """
-    The card schema template. This organises the JSON response when 
-    fetching card information such as the card's name, number, type 
-    and rarity.
-    """
-    class Meta:
-        model = Card
-        load_instance = True
 
-        # Define the exact order of how the JSON query is displayed
-        # Card Number, Card Name, Type, and Rarity
-        fields = (
-            "card_id", 
-            "card_number", 
-            "card_name", 
-            "card_type", 
-            "card_rarity"
-        )
-
-# Create instances of the schema for the controllers to call when 
-# applying validation, error handling and restrictions
-card_schema = CardSchema()
-cards_schema = CardSchema(many = True)
 
 
 class DeckSchema(SQLAlchemyAutoSchema):

@@ -107,7 +107,7 @@ def seed_tables():
         card_number = "BT1-010",
         card_name = "Agumon",
         card_type = CardType.Digimon,
-        card_rarity = CardRarity.Rare
+        card_rarity = CardRarity.SecretRare
     )]
 
     # Add the card information to this session
