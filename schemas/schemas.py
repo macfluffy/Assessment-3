@@ -12,66 +12,13 @@ from marshmallow import fields, ValidationError, validates
 # from models.card import Card
 # from models.deck import Deck
 # from models.player import Player
-from models.organiser import Organiser
-from models.venue import Venue
+# from models.organiser import Organiser
+# from models.venue import Venue
 # from models.decklist import Decklist
 from models.collection import Collection
 from models.event import Event
 from models.registration import Registration
 from models.ranking import Ranking
-
-
-class OrganiserSchema(SQLAlchemyAutoSchema):
-    """
-    The organiser schema template. This organises the JSON response when 
-    fetching organiser information such as the organiser's name, and 
-    contact details.
-    """
-    class Meta:
-        model = Organiser
-        load_instance = True
-
-        # Define the exact order of how the JSON query is displayed
-        # Organiserer Name, Email, and Phone Number
-        fields = (
-            "organiser_id", 
-            "organiser_name",
-            "organiser_email",
-            "organiser_number"
-        )
-
-# Create instances of the schema for the controllers to call when 
-# applying validation, error handling and restrictions
-organiser_schema = OrganiserSchema()
-organisers_schema = OrganiserSchema(many = True)
-
-
-class VenueSchema(SQLAlchemyAutoSchema):
-    """
-    The venue schema template. This organises the JSON response when 
-    fetching venue information such as the venue's name, location 
-    and contact details.
-    """
-    class Meta:
-        model = Venue
-        load_instance = True
-
-        # Define the exact order of how the JSON query is displayed
-        # Venue Name, Address, and Phone Number
-        fields = (
-            "venue_id", 
-            "venue_name",
-            "venue_address",
-            "venue_number"
-        )
-
-# Create instances of the schema for the controllers to call when 
-# applying validation, error handling and restrictions
-venue_schema = VenueSchema()
-venues_schema = VenueSchema(many = True)
-
-
-
 
 
 class CollectionSchema(SQLAlchemyAutoSchema):
