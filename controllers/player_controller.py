@@ -10,7 +10,6 @@ from flask import Blueprint, jsonify, request
 from init import db
 from models.player import Player
 from schemas.player_schema import player_schema, players_schema
-# from schemas.schemas import player_schema, players_schema
 
 # Create the Template Web Application Interface for player routes to 
 # be applied to the Flask application
@@ -60,10 +59,6 @@ def createPlayer():
         bodyData,
         session = db.session
     )
-
-    # newPlayer = Player(
-    #     player_name = bodyData.get("player_name")
-    # )
 
     # Add the player data into the session
     db.session.add(newPlayer)
