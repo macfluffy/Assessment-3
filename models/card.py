@@ -2,7 +2,7 @@
 This file defines the model for the 'cards' table and it's relationships. 
 """
 # Built-in imports
-import enum
+from enum import StrEnum, auto
 
 # Local imports
 from init import db
@@ -13,27 +13,28 @@ Enumerated values for attributes of a card that have a value from a
 pre-defined set
 """
 
-class CardType(enum.Enum):
+class CardType(StrEnum):
     """
     This defines the unique type of card that can be found printed on the 
     top of the card. This assumes a card has only one type.
     """
-    Digiegg = "digiegg"
-    Digimon = "digimon"
-    Option = "option"
-    Tamer = "tamer"
+    Digiegg = auto()
+    Digimon = auto()
+    Option = auto()
+    Tamer = auto()
 
-class CardRarity(enum.Enum):
+class CardRarity(StrEnum):
     """
     This is the print rarity of the card and also determines the 
-    distribution and likelihood of opening them in a box. This is found at 
+    # distribution and likelihood of opening them in a box. This is found at 
     the bottom of the card near the traits.
     """
-    Common = "common"
-    Uncommon = "uncommon"
-    Rare = "rare"
-    SuperRare = "super_rare"
-    SecretRare = "secret_rare"
+    # The Auto() feature will reuse the key and turn it into a string
+    Common = auto()
+    Uncommon = auto()
+    Rare = auto()
+    SuperRare = auto()
+    SecretRare = auto()
 
 class Card(db.Model):
     """

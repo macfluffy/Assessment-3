@@ -9,7 +9,8 @@ from flask import Blueprint, jsonify, request
 # Local imports
 from init import db
 from models.card import Card
-from schemas.schemas import card_schema, cards_schema
+from schemas.card_schema import card_schema, cards_schema
+# from schemas.schemas import card_schema, cards_schema
 
 # Create the Template Web Application Interface for card routes to be applied 
 # to the Flask application
@@ -43,14 +44,12 @@ def createCard():
     bodyData = request.get_json()
     
     # Create a new card object with the request body data as the attributes
-    newCard = Card(
-        card_number = bodyData.get("card_number"),
-        card_name = bodyData.get("card_name"),
-        card_type = bodyData.get("card_type"),
-        card_rarity = bodyData.get("card_rarity")
+    newCard = card_schema.load(
+        bodyData, 
+        session = db.session
     )
 
-    # Add the card data into the session
+    # Validate and add the card data into the session
     db.session.add(newCard)
     
     # Commit and write the card data from this session into 
@@ -136,7 +135,7 @@ def updateCard(card_id):
         # Commit and permanently update the card data in the 
         # postgresql database
         db.session.commit()
-
+        
         # Return the updated card info in JSON format
         return jsonify(card_schema.dump(card))
     else:
