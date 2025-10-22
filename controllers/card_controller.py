@@ -10,7 +10,6 @@ from flask import Blueprint, jsonify, request
 from init import db
 from models.card import Card
 from schemas.card_schema import card_schema, cards_schema
-# from schemas.schemas import card_schema, cards_schema
 
 # Create the Template Web Application Interface for card routes to be applied 
 # to the Flask application
