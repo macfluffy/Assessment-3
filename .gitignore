@@ -1,6 +1,7 @@
 __pycache__
 .venv
 .env
+.envneon
 .flaskenv
 DEV1002 - Assessment 3 Brief.pdf
 ERD

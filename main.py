@@ -41,4 +41,13 @@ def create_app():
     # Apply the imported error handling created in the utilities folder to 
     # this Flask app instance
     register_error_handlers(app)
+
+    # Create a welcome message on the landing page
+    @app.route('/')
+    def welcomeHome():
+        return{
+            "message":
+            "Hello mother, hello father, here I am at Camp Granada! For card information please enter '/cards' at the end of the URL."
+        }
+    
     return app
