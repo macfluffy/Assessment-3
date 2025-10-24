@@ -47,7 +47,7 @@ def create_app():
     def welcomeHome():
         return{
             "message":
-            "Hello mother, hello father, here I am at Camp Granada! For card information please enter '/cards' at the end of the URL."
+            "Hello mother, hello father, here I am at Camp Granada! \nFor more information please enter the following available routes at the end of the URL: \n'/cards' \n'/decks' \n'/organisers' \n'/players' \n'/venues' \nFor the full list of routes check out our website!"
         }
     
     return app
