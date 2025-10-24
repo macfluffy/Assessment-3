@@ -27,31 +27,31 @@ class DecklistSchema(SQLAlchemyAutoSchema):
         # Deck Info, Card Info, Card Quantity
         fields = (
             "deck_id",
-            "decks",
+            "deck",
             "card_quantity",
             "card_id", 
-            "cards"
+            "card"
         )
 
     # Only show the name of the deck when showing deck information in
     # the decklist query
-    decks = fields.Nested(
+    deck = fields.Nested(
         "DeckSchema", 
-        only = (
+        dump_only = True,
+        only = [
             "deck_name",
-        )
+        ]
     )
 
     # Only show the name of the card and unique card number when 
     # showing card information in the decklist query
-    cards = fields.List(
-        fields.Nested(
-            "CardSchema", 
-            only = (
-                "card_number", 
-                "card_name"
-            )
-        )
+    card = fields.Nested(
+        "CardSchema", 
+        dump_only = True,
+        only = [
+            "card_number", 
+            "card_name",
+        ]
     )
 
     # At least 1 copy of a card needs to be added to the decklist

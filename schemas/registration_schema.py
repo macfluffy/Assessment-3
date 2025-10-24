@@ -29,39 +29,39 @@ class RegistrationSchema(SQLAlchemyAutoSchema):
         # Event Info, Player Info, Deck Info, Registration Info
         fields = (
             "event_id",
-            "events",
+            "event",
             "player_id",
-            "players", 
+            "player", 
             "registered_deck",
-            "decks",
+            "deck",
             "registration_date"
         )
 
     # Only show the name of the card and unique card number when 
     # showing card information in the registration query
-    events = fields.Nested(
+    event = fields.Nested(
         "EventSchema", 
-        only = (
+        only = [
             "event_name",
-        )
+        ]
     )
 
     # Only show the name of the player when showing player 
     # information in the registration query
-    players = fields.Nested(
+    player = fields.Nested(
         "PlayerSchema", 
-        only = (
+        only = [
             "player_name",
-        )
+        ]
     )
 
     # Only show the name of the deck when showing deck information in
     # the registration query
-    decks = fields.Nested(
+    deck = fields.Nested(
         "DeckSchema", 
-        only = (
+        only = [
             "deck_name",
-        )
+        ]
     )
 
 # Create instances of the schema for the controllers to call when 

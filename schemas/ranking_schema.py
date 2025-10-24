@@ -28,9 +28,9 @@ class RankingSchema(SQLAlchemyAutoSchema):
         # Player Info, Event Info, Personal Performance Info
         fields = (
             "player_id",
-            "players", 
+            "player", 
             "event_id",
-            "events",
+            "event",
             "placement",
             "points",
             "wins",
@@ -40,29 +40,29 @@ class RankingSchema(SQLAlchemyAutoSchema):
 
     # Only show the name of the player when showing player 
     # information in the ranking query
-    players = fields.Nested(
+    player = fields.Nested(
         "PlayerSchema", 
-        only = (
+        only = [
             "player_name",
-        )
+        ]
     )
 
     # Only show the name of the card and unique card number when 
     # showing card information in the ranking query
-    events = fields.Nested(
+    event = fields.Nested(
         "EventSchema", 
-        only = (
+        only = [
             "event_name",
-        )
+        ]
     )
 
     # Only show the name of the deck when showing deck information in
     # the ranking query
-    decks = fields.Nested(
+    deck = fields.Nested(
         "DeckSchema", 
-        only = (
+        only = [
             "deck_name",
-        )
+        ]
     )
 
 # Create instances of the schema for the controllers to call when 

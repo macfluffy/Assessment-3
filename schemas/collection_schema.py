@@ -22,27 +22,29 @@ class CollectionSchema(SQLAlchemyAutoSchema):
         fields = (
             "collection_id",
             "player_id",
-            "players",
+            "player",
             "deck_id",
-            "decks"
+            "deck"
         )
 
     # Only show the name of the player when showing player 
     # information in the collection query
-    players = fields.Nested(
+    player = fields.Nested(
         "PlayerSchema", 
-        only = (
+        dump_only = True,
+        only = [
             "player_name",
-        )
+        ]
     )
 
     # Only show the name of the deck when showing deck information in
     # the collection query
-    decks = fields.Nested(
+    deck = fields.Nested(
         "DeckSchema", 
-        only = (
+        dump_only = True,
+        only = [
             "deck_name",
-        )
+        ]
     )
 
 # Create instances of the schema for the controllers to call when 

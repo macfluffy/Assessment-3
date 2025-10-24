@@ -29,9 +29,9 @@ class EventSchema(SQLAlchemyAutoSchema):
         fields = (
             "event_id",
             "organiser_id",
-            "organisers",
+            "organiser",
             "venue_id",
-            "venues",
+            "venue",
             "event_name",
             "player_cap",
             "event_date",
@@ -41,20 +41,20 @@ class EventSchema(SQLAlchemyAutoSchema):
 
     # Only show the name of the organiser when showing organiser 
     # information in the event query
-    organisers = fields.Nested(
+    organiser = fields.Nested(
         "OrganiserSchema", 
-        only = (
+        only = [
             "organiser_name",
-        )
+        ]
     )
 
     # Only show the name of the venue when showing venue information in
     # the event query
-    venues = fields.Nested(
+    venue = fields.Nested(
         "VenueSchema", 
-        only = (
+        only = [
             "venue_name",
-        )
+        ]
     )
 
     # Only acceptable values are
