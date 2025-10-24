@@ -12,3 +12,7 @@ Digiscan is a one-stop application for tracking Digimon TCG card releases, playe
 
 - RESTful API 
 - Structured Database
+
+# Live API
+To see the API in action head on over to: 
+[https://assessment-3.onrender.com/](https://assessment-3.onrender.com/)
